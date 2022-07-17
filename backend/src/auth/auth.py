@@ -44,26 +44,26 @@ def get_token_auth_header():
             'description': 'Authorization header is expected.'
         }, 401)
 
-    parts = auth.split()
-    if parts[0].lower() != 'bearer':
+    header_parts = auth.split()
+    if header_parts[0].lower() != 'bearer':
         raise AuthError({
             'code': 'invalid_header',
             'description': 'Authorization header must start with "Bearer".'
         }, 401)
 
-    elif len(parts) == 1:
+    elif len(header_parts) == 1:
         raise AuthError({
             'code': 'invalid_header',
             'description': 'Token not found.'
         }, 401)
 
-    elif len(parts) > 2:
+    elif len(header_parts) > 2:
         raise AuthError({
             'code': 'invalid_header',
             'description': 'Authorization header must be bearer token.'
         }, 401)
 
-    token = parts[1]
+    token = header_parts[1]
     return token
 
 
@@ -191,17 +191,3 @@ def requires_auth(permission=''):
 
         return wrapper
     return requires_auth_decorator
-
-
-# @app.route('/headers')
-# @requires_auth
-# def headers(payload):
-#     print(payload)
-#     return 'Access Granted'
-
-
-# @app.route('/drinks')
-# @requires_auth('get:drinks')
-# def drinks(jwt):
-#     print('jwt', jwt)
-#     return 'not implemented'
