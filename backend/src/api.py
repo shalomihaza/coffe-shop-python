@@ -170,11 +170,6 @@ def delete_drink(payload, id):
         abort(400)
 
 
-@app.route('/login-results', methods=['GET'])
-def login_results():
-    return (jsonify({'message': 'successful login'}))
-
-
 # Error Handling
 '''
 Example error handling for unprocessable entity
